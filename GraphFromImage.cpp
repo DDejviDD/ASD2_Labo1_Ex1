@@ -11,7 +11,7 @@ GraphFromImage::Iterable GraphFromImage::adjacent(int v) const {
 }
 
 int GraphFromImage::idx(int x, int y) const {
-    /* A IMPLEMENTER */
+    return y * image.width() + x;
 }
 
 int GraphFromImage::x(int idx) const {
@@ -23,6 +23,5 @@ int GraphFromImage::y(int idx) const {
 }
 
 int GraphFromImage::V() const {
-   return image.height()*image.width(); 
-   /* A IMPLEMENTER */
+   return image.pixel_count();
 }
