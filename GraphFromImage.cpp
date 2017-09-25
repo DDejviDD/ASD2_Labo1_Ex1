@@ -1,10 +1,6 @@
 #include "GraphFromImage.h"
 
-GraphFromImage::GraphFromImage(const bitmap_image& i) : image(i) {
-    /* A IMPLEMENTER */
-   i.width();
-   i.height();
-}
+GraphFromImage::GraphFromImage(const bitmap_image& i) : image(i) {}
 
 GraphFromImage::Iterable GraphFromImage::adjacent(int v) const {
     /* A IMPLEMENTER */
@@ -15,11 +11,11 @@ int GraphFromImage::idx(int x, int y) const {
 }
 
 int GraphFromImage::x(int idx) const {
-   /* A IMPLEMENTER */
+   return idx%image.width();
 }
 
 int GraphFromImage::y(int idx) const {
-    /* A IMPLEMENTER */
+   return idx/image.width();
 }
 
 int GraphFromImage::V() const {
