@@ -1,58 +1,59 @@
 #include "GraphFromImage.h"
 
-GraphFromImage::GraphFromImage(const bitmap_image& i) : image(i) {}
+GraphFromImage::GraphFromImage(const bitmap_image& i) : image(i) {
+}
 
 GraphFromImage::Iterable GraphFromImage::adjacent(int v) const {
-    // renvoie une liste de sommets adjacents
-    Iterable adjList;
-    unsigned char r,g,b,r2,g2,b2;
+   // renvoie une liste de sommets adjacents
+   Iterable adjList;
+   unsigned char r, g, b, r2, g2, b2;
 
-    image.get_pixel(x(v), y(v),r,g,b);
+   image.get_pixel(x(v), y(v), r, g, b);
 
-    //pixel gauche
-    if(x(v)){
-        image.get_pixel(x(v)-1, y(v),r2,g2,b2);
+   //pixel gauche
+   if (x(v)) {
+      image.get_pixel(x(v) - 1, y(v), r2, g2, b2);
 
-        if(r==r2 && g==g2 && b==b2)
-            adjList.push_back(v-1);
-    }
+      if (r == r2 && g == g2 && b == b2)
+         adjList.push_back(v - 1);
+   }
 
-    //pixel droit
-    if(x(v)<(image.width()-1)){
-        image.get_pixel(x(v)+1, y(v),r2,g2,b2);
-        if(r==r2 && g==g2 && b==b2)
-            adjList.push_back(v+1);
-    }
-    //pixel haut-dessus
-    if(v>=image.width()){
-        image.get_pixel(x(v), y(v)-1,r2,g2,b2);
-        if(r==r2 && g==g2 && b==b2)
-            adjList.push_back(v-image.width());
-    }
-    //pixel haut-dessous
-    if(v<(V()-image.width())){
-        image.get_pixel(x(v), y(v)+1,r2,g2,b2);
-        if(r==r2 && g==g2 && b==b2)
-            adjList.push_back(v+image.width());
-    }
+   //pixel droit
+   if ((unsigned) x(v)<(image.width() - 1)) {
+      image.get_pixel(x(v) + 1, y(v), r2, g2, b2);
+      if (r == r2 && g == g2 && b == b2)
+         adjList.push_back(v + 1);
+   }
+   //pixel haut-dessus
+   if ((unsigned) v >= image.width()) {
+      image.get_pixel(x(v), y(v) - 1, r2, g2, b2);
+      if (r == r2 && g == g2 && b == b2)
+         adjList.push_back(v - image.width());
+   }
+   //pixel haut-dessous
+   if ((unsigned) v < (V() - image.width())) {
+      image.get_pixel(x(v), y(v) + 1, r2, g2, b2);
+      if (r == r2 && g == g2 && b == b2)
+         adjList.push_back(v + image.width());
+   }
 
 
 
-    return adjList;
+   return adjList;
 
 
 }
 
 int GraphFromImage::idx(int x, int y) const {
-    return y * image.width() + x;
+   return y * image.width() + x;
 }
 
 int GraphFromImage::x(int idx) const {
-   return idx%image.width();
+   return idx % image.width();
 }
 
 int GraphFromImage::y(int idx) const {
-   return idx/image.width();
+   return idx / image.width();
 }
 
 int GraphFromImage::V() const {
