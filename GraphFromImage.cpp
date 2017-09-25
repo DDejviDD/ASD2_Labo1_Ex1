@@ -3,46 +3,43 @@
 GraphFromImage::GraphFromImage(const bitmap_image& i) : image(i) {}
 
 GraphFromImage::Iterable GraphFromImage::adjacent(int v) const {
+    // renvoie une liste de sommets adjacents
     Iterable adjList;
-    int LIMITE_INF = 0;
-    int LIMITE_SUP = V();
-    int idxv = idx(x(v),y(v));
-    unsigned char r,g,b;
-
+    unsigned char r,g,b,r2,g2,b2;
 
     image.get_pixel(x(v), y(v),r,g,b);
 
-    if(!(r+b+g))
-        return adjList;
-
     //pixel gauche
-    if(x(v) && idxv-1 >= LIMITE_INF && idxv-1 < LIMITE_SUP){
-        image.get_pixel(x(v), y(v),r,g,b);
-        if(r+g+b)
-            adjList.push_back(idxv-1);
+    if(x(v)){
+        image.get_pixel(x(v)-1, y(v),r2,g2,b2);
+
+        if(r==r2 && g==g2 && b==b2)
+            adjList.push_back(v-1);
     }
+
     //pixel droit
-    if((x(v)<image.width()) && idxv+1 >= LIMITE_INF && idxv+1 < LIMITE_SUP){
-        image.get_pixel(x(v), y(v),r,g,b);
-        if(r+g+b)
-            adjList.push_back(idxv+1);
+    if(x(v)<(image.width()-1)){
+        image.get_pixel(x(v)+1, y(v),r2,g2,b2);
+        if(r==r2 && g==g2 && b==b2)
+            adjList.push_back(v+1);
     }
     //pixel haut-dessus
-    if(idxv>=image.width()){
-        image.get_pixel(x(v), y(v),r,g,b);
-        if(r+g+b)
-            adjList.push_back(idxv-image.width());
+    if(v>=image.width()){
+        image.get_pixel(x(v), y(v)-1,r2,g2,b2);
+        if(r==r2 && g==g2 && b==b2)
+            adjList.push_back(v-image.width());
     }
     //pixel haut-dessous
-    if(idxv<(V()-image.width())){
-        image.get_pixel(x(v), y(v),r,g,b);
-        if(r+g+b)
-            adjList.push_back(idxv+image.width());
+    if(v<(V()-image.width())){
+        image.get_pixel(x(v), y(v)+1,r2,g2,b2);
+        if(r==r2 && g==g2 && b==b2)
+            adjList.push_back(v+image.width());
     }
 
 
 
     return adjList;
+
 
 }
 
