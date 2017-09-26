@@ -21,17 +21,20 @@ GraphFromImage::Iterable GraphFromImage::adjacent(int v) const {
    //pixel droit
    if ((unsigned) x(v)<(image.width() - 1)) {
       image.get_pixel(x(v) + 1, y(v), r2, g2, b2);
+      
       if (r == r2 && g == g2 && b == b2)
          adjList.push_back(v + 1);
    }
    //pixel haut-dessus
-   if ((unsigned) v >= image.width()) {
+   // (unsigned) v >= image.width()
+   if (y(v)) {
       image.get_pixel(x(v), y(v) - 1, r2, g2, b2);
       if (r == r2 && g == g2 && b == b2)
          adjList.push_back(v - image.width());
    }
    //pixel haut-dessous
-   if ((unsigned) v < (V() - image.width())) {
+   //(unsigned) v < (V() - image.width())
+   if ((unsigned) y(v) < (image.height()-1)) {
       image.get_pixel(x(v), y(v) + 1, r2, g2, b2);
       if (r == r2 && g == g2 && b == b2)
          adjList.push_back(v + image.width());

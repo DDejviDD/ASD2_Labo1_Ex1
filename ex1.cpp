@@ -28,6 +28,10 @@ int main(int argc, char** argv) {
 
     //Question BONUS: Pourquoi n'utilisons-nous pas la methode visite pour parcourir l'image ?
     
+    // Réponse : Lorsque l'on parcours une image, en utilisant la méthode visite,
+    //           nous allons nous retrouver dans une boucle infinie.
+    //           C'est pour cette raison que nous devons marquer les sommets déjà visité.
+    
     //on colore la carotte
     int x = 250, y = 400;
     dfs.iterativeVisit( G.idx(x,y), [&G, &image] (int v) {
